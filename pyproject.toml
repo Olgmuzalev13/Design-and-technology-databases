@@ -1,0 +1,49 @@
+[project]
+name = "my-django-project"
+version = "0.1.0"
+description = "Django project for 8 semester"
+authors = [
+    {name = "Музалев Олег", email = "razrushitelyvselennoy@mail.ru"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Framework :: Django",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "Django>=4.2",
+    "djangorestframework>=3.14",
+    "django-cors-headers>=4.0",
+    "psycopg2-binary>=2.9",  # for PostgreSQL
+    "python-dotenv>=1.0",    # for env variables
+    "pre-commit>=3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-django>=4.5",
+    "black>=23.0",
+    "flake8>=6.0",
+    "mypy>=1.0",
+    "django-debug-toolbar>=4.0",
+]
+prod = [
+    "gunicorn>=21.0",
+    "whitenoise>=6.0",
+    "sentry-sdk>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/username/my-django-project"
+Repository = "https://github.com/username/my-django-project"
+"Bug Tracker" = "https://github.com/username/my-django-project/issues"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
