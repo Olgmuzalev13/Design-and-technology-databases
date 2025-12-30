@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+{% block title %}Сотрудники{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Список сотрудников</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Подразделение</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in employees %}
+                <tr>
+                    <td>{{ emp.user.last_name }} {{ emp.user.first_name }}</td>
+                    <td>{{ emp.position }}</td>
+                    <td>{{ emp.department }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

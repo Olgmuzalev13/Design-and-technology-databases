@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Регистрация сотрудника</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control mb-2" name="first_name" placeholder="Имя">
+                        </div>
+                        <div class="col">
+                            <input class="form-control mb-2" name="last_name" placeholder="Фамилия">
+                        </div>
+                    </div>
+                    <input class="form-control mb-2" name="username" placeholder="Логин">
+                    <input type="password" class="form-control mb-2" name="password" placeholder="Пароль">
+                    <input class="form-control mb-2" name="position" placeholder="Должность">
+                    <input class="form-control mb-3" name="department" placeholder="Подразделение">
+                    <button class="btn btn-success w-100">Зарегистрировать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

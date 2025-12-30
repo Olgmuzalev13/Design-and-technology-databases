@@ -22,6 +22,8 @@ dependencies = [
     "psycopg2-binary>=2.9",  # for PostgreSQL
     "python-dotenv>=1.0",    # for env variables
     "pre-commit>=3.0",
+    "python-dotenv>=1.2.1",
+    "coverage>=7.0",
 ]
 
 [project.optional-dependencies]

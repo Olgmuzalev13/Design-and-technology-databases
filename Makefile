@@ -1,32 +1,25 @@
-up:
-	docker-compose up
-
-down:
-	docker-compose down
+local:
+	python3 ./project8sem/manage.py makemigrations
+	python3 ./project8sem/manage.py migrate
+	python3 ./project8sem/manage.py runserver
 
 build:
-	docker-compose build
+	docker compose up --build
 
-logs:
-	docker-compose logs -f web
 
-migrate:
-	docker-compose exec web python manage.py migrate
-
-makemigrations:
-	docker-compose exec web python manage.py makemigrations
-
-test:
-	docker-compose exec web python manage.py test
+tests:
+	coverage run ./project8sem/manage.py test
+	coverage report
+	coverage html
 
 lint:
 	flake8 project8sem
 
-format:
-	docker-compose exec web black backend/
+logs:
+	docker compose logs -f web
 
-init:
-	docker-compose build
-	docker-compose up -d
-	sleep 5
-	echo "Проект запущен: http://localhost:8000"
+up:
+	docker compose up
+
+down:
+	docker compose down -v

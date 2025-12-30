@@ -36,3 +36,11 @@ jobs:
           --per-file-ignores=__init__.py:F401,tests/*:S101,*/migrations/*:E501 \
           --count \
           --statistics
+    - name: Install test dependencies
+      run: |
+        pip install django coverage
+
+    - name: Run tests with coverage
+      run: |
+        coverage run manage.py test
+        coverage report --fail-under=75

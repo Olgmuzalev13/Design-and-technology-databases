@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Создаем директорию как в docker-compose.yml
 WORKDIR /app
 
 # copying dependencies
@@ -13,11 +14,12 @@ COPY pyproject.toml .
 
 # installations
 RUN pip install --upgrade pip && \
-    pip install .  # установит зависимости из pyproject.toml
+    pip install .
 
 # copying project
 COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# manage.py
+WORKDIR /app/project8sem
