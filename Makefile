@@ -3,9 +3,11 @@ local:
 	python3 ./project8sem/manage.py migrate
 	python3 ./project8sem/manage.py runserver
 
-build:
-	docker compose up --build
+db:
+	docker compose up --build db
 
+compose:
+	docker compose up --build
 
 tests:
 	coverage run ./project8sem/manage.py test

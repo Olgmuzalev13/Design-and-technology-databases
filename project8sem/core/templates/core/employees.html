@@ -2,27 +2,35 @@
 {% block title %}Сотрудники{% endblock %}
 
 {% block content %}
-<div class="card shadow-sm">
-    <div class="card-body">
-        <h5 class="card-title mb-3">Список сотрудников</h5>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ФИО</th>
-                    <th>Должность</th>
-                    <th>Подразделение</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for emp in employees %}
-                <tr>
-                    <td>{{ emp.user.last_name }} {{ emp.user.first_name }}</td>
-                    <td>{{ emp.position }}</td>
-                    <td>{{ emp.department }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="row">
+    <div class="col">
+        <h3 class="mb-1">Список сотрудников</h3>
+        <p class="text-muted mb-4">
+            Зарегистрированные пользователи автоматизированной системы
+        </p>
+
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ФИО</th>
+                            <th>Должность</th>
+                            <th>Подразделение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for emp in employees %}
+                        <tr>
+                            <td>{{ emp.user.last_name }} {{ emp.user.first_name }}</td>
+                            <td>{{ emp.position }}</td>
+                            <td>{{ emp.department }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

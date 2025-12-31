@@ -4,16 +4,31 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-4">
+        <h4 class="text-center mb-3">Вход в систему</h4>
+
         <div class="card shadow-sm">
             <div class="card-body">
-                <h5 class="card-title mb-3">Вход в систему</h5>
                 <form method="post">
                     {% csrf_token %}
-                    <input class="form-control mb-2" name="username" placeholder="Логин">
-                    <input type="password" class="form-control mb-3" name="password" placeholder="Пароль">
-                    <button class="btn btn-primary w-100">Войти</button>
+
+                    <div class="mb-3">
+                        <label class="form-label">Логин</label>
+                        <input class="form-control" name="username">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+
+                    <button class="btn btn-primary w-100 mb-3">Войти</button>
                 </form>
-                <a href="{% url 'register' %}" class="d-block mt-3 text-center">Регистрация</a>
+
+                <div class="text-center">
+                    <a href="{% url 'register' %}" class="link-secondary">
+                        Регистрация нового сотрудника
+                    </a>
+                </div>
             </div>
         </div>
     </div>

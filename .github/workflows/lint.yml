@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+permissions:
+  contents: write
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -42,5 +45,11 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        coverage run manage.py test
+        pip install coverage
+        coverage run project8sem/manage.py test
+        coverage xml
         coverage report --fail-under=75
+
+    - name: Update coverage badge
+      if: github.event_name == 'push'
+      uses: tj-actions/coverage-badge-py@v2
