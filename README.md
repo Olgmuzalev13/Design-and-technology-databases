@@ -1,6 +1,6 @@
 # APCS – Automated Process Control System
 
-![Coverage](https://raw.githubusercontent.com/OWNER/REPO/BRANCH/.github/badges/coverage.svg)
+![Coverage](coverage.svg)
 
 Учебный проект, предназначенный для использования в рамках 8 семестра МГТУ им. Баумана по дисциплине
 **«Конструкторско-технологические базы данных электронно-вычислительных средств»**.
