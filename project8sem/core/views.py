@@ -1,46 +1,79 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import ListView, TemplateView
 
 from .models import Employee
 
 
-def login_view(request):
-    if request.method == "POST":
+class UserLoginView(View):
+    template_name = "core/login.html"
+
+    def get(self, request):
+        return self.render_to_response()
+
+    def post(self, request):
         user = authenticate(
             request,
             username=request.POST.get("username"),
             password=request.POST.get("password"),
         )
-        if user:
+        if user is not None:
             login(request, user)
+
+            # Пример работы с сессией
+            request.session["user_id"] = user.id
+            request.session["username"] = user.username
+
             return redirect("employees")
-    return render(request, "core/login.html")
+
+        return self.render_to_response(error="Неверный логин или пароль")
+
+    def render_to_response(self, **context):
+        return TemplateView.as_view(
+            template_name=self.template_name,
+            extra_context=context,
+        )(self.request)
 
 
-def register_view(request):
-    if request.method == "POST":
+class UserRegisterView(View):
+    template_name = "core/register.html"
+    success_url = reverse_lazy("login")
+
+    def get(self, request):
+        return self.render_to_response()
+
+    def post(self, request):
         user = User.objects.create_user(
-            username=request.POST["username"],
-            password=request.POST["password"],
-            first_name=request.POST["first_name"],
-            last_name=request.POST["last_name"],
+            username=request.POST.get("username"),
+            password=request.POST.get("password"),
+            first_name=request.POST.get("first_name"),
+            last_name=request.POST.get("last_name"),
         )
+
         Employee.objects.create(
             user=user,
-            position=request.POST["position"],
-            department=request.POST["department"],
+            position=request.POST.get("position"),
+            department=request.POST.get("department"),
         )
-        return redirect("login")
-    return render(request, "core/register.html")
+
+        return redirect(self.success_url)
+
+    def render_to_response(self, **context):
+        return TemplateView.as_view(
+            template_name=self.template_name,
+            extra_context=context,
+        )(self.request)
 
 
-@login_required
-def employees_view(request):
-    employees = Employee.objects.select_related("user")
-    return render(
-        request,
-        "core/employees.html",
-        {"employees": employees},
-    )
+class EmployeeListView(LoginRequiredMixin, ListView):
+    model = Employee
+    template_name = "core/employees.html"
+    context_object_name = "employees"
+    login_url = reverse_lazy("login")
+
+    def get_queryset(self):
+        return Employee.objects.select_related("user")
