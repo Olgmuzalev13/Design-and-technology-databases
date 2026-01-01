@@ -1,6 +1,8 @@
 # APCS – Automated Process Control System
 
-![Coverage](coverage.svg)
+[![Coverage](https://olgmuzalev13.github.io/Design-and-technology-databases/badges/coverage.svg)](
+https://github.com/Olgmuzalev13/Design-and-technology-databases/actions
+)
 
 Учебный проект, предназначенный для использования в рамках 8 семестра МГТУ им. Баумана по дисциплине
 **«Конструкторско-технологические базы данных электронно-вычислительных средств»**.
@@ -186,7 +188,6 @@ Makefile не скрывает логику команд, а только сок
 
 Предварительно рекомендуется прочитать еще README.md по адресу project8sem/README.md  для понимания базовой структуры проекта и
 README.md по адресу pproject8sem/core/README.md для понимания минимальной основы проекта которая была заложена.
-
 
 Для продолжения работы над проектом в рамках учебного курса рекомендуется следующий рабочий процесс:
 
