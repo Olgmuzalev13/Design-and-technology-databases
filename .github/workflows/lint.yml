@@ -46,19 +46,3 @@ jobs:
         coverage run project8sem/manage.py test
         coverage xml
         coverage report --fail-under=75
-
-    - name: Update coverage badge
-      if: github.event_name == 'push'
-      uses: tj-actions/coverage-badge-py@v2
-
-    - name: Commit coverage badge
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add coverage.svg
-        git commit -m "chore: updated coverage badge" || echo "No changes to commit"
-
-    - name: Push coverage badge
-      uses: ad-m/github-push-action@v1.0.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
