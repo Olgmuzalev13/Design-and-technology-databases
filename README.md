@@ -63,25 +63,25 @@
 
 ## Быстрый старт (Docker)
 
+Пред запуском **настоятельно рекомендуется** прочитать всю методичку и все readme.md в этом репозитории.
+
 ### 1. Создание файла окружения
 
-Создайте файл `.env` по образцу `.env.example`, изменив пароль и при необходимости имя базы данных:
+Внимательно ознакомьтесь с файлами Makefile и .env.example  
+поймите что делает каждая команда и за что отвечают переменные окружения.
 
-```
-POSTGRES_DB=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=db
-POSTGRES_PORT=5432
-```
+Создайте файл `.env` по образцу `.env.example`.
 
 ### 2. Запуск проекта
 
 ```bash
-docker compose up --build
+source env/bin/activate
+pip install .
+make compose
 ```
 
-(или make build)
+Если возникает ошибка "docker compose up --build unknown flag: --build" -  
+то поменяйте все "docker compose" в Makefile на "docker-compose" так как в зависимости от версий команды различаются по написанию.
 
 После запуска:
 
