@@ -47,6 +47,11 @@ jobs:
       steps:
         - uses: actions/checkout@v4
 
+        - name: Export UID/GID for docker
+          run: |
+            echo "UID=$(id -u)" >> $GITHUB_ENV
+            echo "GID=$(id -g)" >> $GITHUB_ENV
+
         - name: Build and run containers
           run: docker compose up --build -d
 
