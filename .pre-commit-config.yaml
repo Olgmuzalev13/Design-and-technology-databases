@@ -1,20 +1,39 @@
 repos:
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.0.0 
+    rev: 7.0.0
     hooks:
       - id: flake8
         name: flake8
-        description: "Python style guide enforcement"
         args:
           - "--max-line-length=100"
           - "--extend-ignore=E203,W503"
           - "--max-complexity=10"
           - "--exclude=.git,__pycache__,.venv,venv,env,migrations,static,media,env,build,my_django_project.egg-info"
           - "--per-file-ignores=__init__.py:F401,tests/*:S101,*/migrations/*:E501"
+
   - repo: local
     hooks:
-      - id: django-tests
-        name: django tests
-        entry: python ./project8sem/manage.py test
+      - id: django-tests-docker
+        name: django tests + coverage (docker)
         language: system
         pass_filenames: false
+        entry: |
+          bash -c '
+          set -e
+
+          echo "Starting docker containers..."
+          docker compose up --build -d
+
+          echo "Waiting for database..."
+          sleep 5
+
+          echo "Running tests with coverage..."
+          docker compose exec -T web coverage run manage.py test
+          docker compose exec -T web coverage report --fail-under=75
+
+          echo "Cleaning coverage artifacts..."
+          docker compose exec -T web rm -f .coverage coverage.json || true
+
+          echo "Stopping containers..."
+          docker compose down
+          '

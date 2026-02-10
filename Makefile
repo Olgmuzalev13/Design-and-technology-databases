@@ -14,9 +14,10 @@ compose:
 
 # Запуск тестов и генерация отчетов о покрытии кода
 tests:
-	coverage run ./project8sem/manage.py test
-	coverage report
-	coverage html
+	docker compose up --build -d
+	sleep 5
+	docker compose exec web python manage.py test
+	docker compose down
 
 # Проверка кода на соответствие стилю и стандартам - нужна чтобы пройти precommit проверку
 lint:
